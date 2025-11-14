@@ -142,12 +142,12 @@
 
 **Examples**:
 - "Save & Exit"
-- "Submit"
+- "Complete Profile"
 
 **States**:
 - Default: Green background
 - Hover: Darker green
-- Disabled: Gray background
+- Disabled: Gray background (when validation incomplete)
 
 ---
 
@@ -187,19 +187,18 @@
 #### Icon Buttons
 **Component Name**: Card Action Buttons
 
-**Classes**: `p-1 hover:bg-blue-100 rounded text-blue-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent`
+**Classes**: `p-1 rounded transition-colors`
 
 **Icons**:
-- ArrowUp - Move card up
-- ArrowDown - Move card down
-- Copy - Duplicate card
-- Eraser - Clear fields
-- X - Remove card
+- GripVertical - Drag handle for reordering cards (gray, cursor-grab/grabbing)
+- Copy - Duplicate card (green on hover: hover:bg-green-100)
+- Eraser - Clear fields (orange on hover: hover:bg-orange-100)
+- X - Remove card (red on hover: hover:bg-red-100)
 
 **States**:
 - Default: Icon visible
-- Hover: Light blue background
-- Disabled: 30% opacity, no hover effect
+- Hover: Colored background based on action type
+- Drag handle: cursor-grab, active:cursor-grabbing
 
 ---
 
@@ -320,7 +319,7 @@
 
 **Type**: file
 
-**Accept**: `.pdf,.doc,.docx,image/*`
+**Accept**: `.pdf,.doc,.docx`
 
 **Classes**: `hidden` (triggered via label)
 
@@ -336,9 +335,10 @@
 - **Active**: `border-blue-500 shadow-lg bg-blue-50`
 
 **Header**:
+- Drag Handle: GripVertical icon with title ("Drag to reorder")
 - Title: `text-lg font-semibold text-gray-900`
   - Examples: "Experience #1", "Project #1", "Education #1"
-- Action Buttons: Row of icon buttons (ArrowUp, ArrowDown, Copy, Eraser, X)
+- Action Buttons: Row of icon buttons (Copy, Eraser, X)
 
 **Layout**: Clickable card with form fields inside
 
@@ -645,6 +645,7 @@
 
 #### Drag & Drop
 - **File upload**: Drag over activates drop zone visual
+- **Card reordering**: Drag cards by grip handle to reorder within section
 - **Floating panel**: Drag header to reposition
 - **Resize handle**: Drag bottom-right corner to resize
 
@@ -666,8 +667,7 @@
 
 ### Navigation & Actions
 - **ArrowRight**: Navigation between sections (`h-4 w-4`)
-- **ArrowUp**: Move card up in list (`h-5 w-5`)
-- **ArrowDown**: Move card down in list (`h-5 w-5`)
+- **GripVertical**: Drag handle for card reordering (`h-5 w-5`)
 - **X**: Close/remove actions (`h-4 w-4` or `h-5 w-5`)
 - **Plus**: Add new items (`h-4 w-4` or `h-5 w-5`)
 
@@ -676,7 +676,7 @@
 - **XCircle**: Error, incomplete (`h-5 w-5`)
 - **AlertCircle**: Warning, error (`h-3 w-3` or `h-5 w-5`)
 - **HelpCircle**: Tooltip trigger (`h-4 w-4`)
-- **Sparkles**: Progress encouragement (`h-4 w-4` or `h-6 w-6`)
+- **TrendingUp**: Progress encouragement (`h-4 w-4` or `h-6 w-6`)
 
 ### File & Content
 - **Upload**: File upload (`h-4 w-4` or `h-16 w-16`)
@@ -734,10 +734,10 @@
 
 ---
 
-#### Pulse (Sparkles Icon)
+#### Pulse (TrendingUp Icon)
 **Name**: animate-pulse
 
-**Usage**: Sparkles icon at 100% progress completion
+**Usage**: TrendingUp icon showing progress encouragement
 
 ---
 
@@ -768,6 +768,201 @@
 #### Hover Scale
 - Cards: Subtle shadow increase on hover
 - Buttons: Background color change
+
+---
+
+### 6.4 MICRO-INTERACTIONS
+
+Micro-interactions provide immediate feedback to user actions, creating a responsive and intuitive experience.
+
+---
+
+#### 1. Drag & Drop Card Reordering
+**When**: User drags Experience, Project, or Education cards to reorder them
+
+**Behavior**:
+- Grip icon visible on each card indicating it's draggable
+- Dragged card becomes semi-transparent and slightly smaller
+- Drop zone shows blue highlight with ring effect
+- Card reorders instantly on drop
+
+**User Benefit**: Intuitive visual feedback confirms which card is being moved and where it will land.
+
+---
+
+#### 2. Form Field Status Feedback
+**When**: User interacts with input fields
+
+**Behavior**:
+- **Empty**: Gray border, neutral state
+- **Focused**: Blue border with subtle ring glow
+- **Filled**: Green border with light green background + animated checkmark bounces in
+- **Error**: Red border with light red background + error icon appears
+
+**User Benefit**: Instant visual confirmation of field completion status and validation state.
+
+---
+
+#### 3. Button Hover States
+**When**: User hovers over any button
+
+**Behavior**:
+- Primary buttons darken slightly
+- Icon action buttons show colored background (blue for drag, green for duplicate, orange for clear, red for remove)
+- Smooth color transitions (~200ms)
+
+**User Benefit**: Confirms button is clickable and previews its function through color coding.
+
+---
+
+#### 4. Progress Milestone Celebrations
+**When**: User reaches 25%, 50%, 75%, or 100% completion
+
+**Behavior**:
+- Toast notification slides up from bottom center
+- Displays encouraging message with gradient background
+- Remains visible for 4 seconds
+- Slides back down and fades out
+
+**User Benefit**: Motivates users by celebrating incremental progress.
+
+---
+
+#### 5. Active Card Highlighting
+**When**: User clicks on an Experience/Project/Education card
+
+**Behavior**:
+- Selected card gets blue border with shadow and light blue background
+- Other cards return to neutral gray state
+- Smooth transition between states
+
+**User Benefit**: Clear indication of which card is active for text assignment from resume.
+
+---
+
+#### 6. File Upload Drop Zone
+**When**: User drags file over upload area
+
+**Behavior**:
+- Upload zone border changes to blue
+- Background changes to light blue
+- Returns to neutral when file leaves area
+
+**User Benefit**: Confirms drop zone is ready to receive file.
+
+---
+
+#### 7. Text Selection Preview
+**When**: User selects text from resume and focuses on a form field
+
+**Behavior**:
+- Selected text appears as gray preview inside the field
+- Blue pulsing text below field says "Click to fill with selected text"
+- Placeholder text hidden during preview
+- Preview disappears if field loses focus
+
+**User Benefit**: Shows exactly what will be filled before committing the action.
+
+---
+
+#### 8. Skill Tag Management
+**When**: User adds or removes skills
+
+**Behavior**:
+- New skills appear instantly as blue badges
+- Hovering over skill shows lighter blue background on X icon
+- Clicking X removes skill immediately
+- Supports bulk adding via comma/line separation
+
+**User Benefit**: Clear, responsive skill management with immediate feedback.
+
+---
+
+#### 9. Progress Bar Updates
+**When**: User fills required fields or completes sections
+
+**Behavior**:
+- Progress bar width animates smoothly (300ms)
+- Bar changes from blue to green at 100%
+- Percentage updates in real-time
+
+**User Benefit**: Continuous feedback on overall completion status.
+
+---
+
+#### 10. Auto-save Confirmation
+**When**: User makes changes to form data
+
+**Behavior**:
+- After 2-second pause in typing, data saves automatically
+- "Last saved at [time]" appears in header
+- No intrusive notifications or pop-ups
+
+**User Benefit**: Peace of mind that work is preserved without manual saving.
+
+---
+
+#### 11. Context Menu for Field Assignment
+**When**: User right-clicks selected text (in floating panel mode)
+
+**Behavior**:
+- Menu appears instantly at cursor position
+- Shows list of available fields
+- Clicking field assigns text and closes menu
+- Pressing Escape or clicking outside closes menu
+
+**User Benefit**: Quick access to assign text without navigating away.
+
+---
+
+#### 12. Floating Panel Repositioning
+**When**: User drags floating panel by header
+
+**Behavior**:
+- Cursor changes to indicate draggability on header hover
+- Panel follows mouse smoothly during drag
+- Position saves to browser storage
+- Panel remembers position on page reload
+
+**User Benefit**: Customize workspace layout for optimal workflow.
+
+---
+
+#### 13. Resume Zoom Feedback
+**When**: User clicks zoom in/out buttons
+
+**Behavior**:
+- Resume scales smoothly with transform animation
+- Zoom range: 50% to 200%
+- Transform origin from top center
+- Current zoom level displayed
+
+**User Benefit**: Smooth, predictable zoom for better text readability.
+
+---
+
+#### 14. Character Counter
+**When**: User types in multiline text fields
+
+**Behavior**:
+- Real-time character count updates: "X/2000 characters"
+- Displayed below field, right-aligned
+- Gray text, non-intrusive
+
+**User Benefit**: Helps stay within limits without trial and error.
+
+---
+
+#### 15. Placeholder Guidance
+**When**: User focuses/blurs input fields
+
+**Behavior**:
+- Placeholder text provides examples and hints
+- Fades during text selection preview
+- Disappears when field has value
+- Returns when field is cleared
+
+**User Benefit**: Contextual guidance on what to enter in each field.
 
 ---
 
@@ -826,7 +1021,7 @@
 **Components**:
 - Progress bar with percentage
 - Vertical divider (`border-l`)
-- Encouraging message with sparkles icon
+- Encouraging message with TrendingUp icon
 - Time estimate
 
 ---
@@ -967,7 +1162,7 @@
 - "Add Education"
 - "Next"
 - "Save & Exit"
-- "Submit"
+- "Complete Profile"
 - "View Your Profile"
 - "Start Networking"
 
@@ -980,6 +1175,7 @@
 - "Cancel"
 - "Edit"
 - "Add"
+- "Back" (Review screen)
 
 #### Toggle Actions
 - "Floating Panel" / "Traditional"
@@ -1071,7 +1267,7 @@
 - "Click to fill with selected text" (when text selected and focused)
 
 #### Upload
-- "Supports PDF, DOC, DOCX (Max 5MB)"
+- "Supports PDF, DOC, DOCX (Max 10MB)"
 - "Your resume is secure and only visible to you"
 
 #### Character Counter
@@ -1181,7 +1377,7 @@
 
 #### File Upload Errors
 - "Please upload a PDF or DOC file" (via alert)
-- "File size must be less than 5MB" (via alert)
+- "File size must be less than 10MB" (via alert)
 
 ---
 
@@ -1284,7 +1480,7 @@
 
 **Title**: "✓ Ready to Complete!"
 
-**Message**: "All required information is complete. Click Save & Exit to finish."
+**Message**: "All required information is complete. Click Complete Profile to finish."
 
 ---
 
@@ -1425,7 +1621,7 @@
 #### Style
 **Classes**: `bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3`
 
-**Icon**: Sparkles (`h-6 w-6 animate-pulse`)
+**Icon**: TrendingUp (`h-6 w-6 animate-pulse`)
 
 **Text**: `text-lg font-semibold`
 
@@ -1527,7 +1723,34 @@
 
 ---
 
-### 11.5 AUTO-SAVE SYSTEM
+### 11.5 DRAG & DROP CARD REORDERING
+
+**Feature Name**: Card Reordering with Drag & Drop
+
+#### Behavior
+- Cards can be reordered within their own section only
+- Experience cards can only reorder among experience cards
+- Project cards can only reorder among project cards
+- Education cards can only reorder among education cards
+
+---
+
+#### Visual Feedback
+- **Drag Start**: Dragged card becomes semi-transparent (opacity-50) and slightly smaller (scale-95)
+- **Drag Over**: Target drop zone shows blue border with ring highlight
+- **Drag End**: Card reorders instantly, all visual states reset
+
+---
+
+#### Constraints
+- Cannot drag cards across different sections
+- Cannot drag if only one card exists in section
+- Drag handle visible on all cards regardless of count
+- Card order is visual only (display_order field updates)
+
+---
+
+### 11.6 AUTO-SAVE SYSTEM
 
 **Feature Name**: Auto-save Data Persistence
 

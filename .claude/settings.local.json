@@ -9,7 +9,11 @@
       "Bash(git remote add:*)",
       "Bash(git branch:*)",
       "Bash(git push:*)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nAdd comprehensive README documentation\n\n- Project overview and features\n- Complete installation guide\n- Usage instructions with quick start\n- Tech stack and project structure\n- Design system reference\n- Contributing guidelines\n- Future enhancements roadmap\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd comprehensive README documentation\n\n- Project overview and features\n- Complete installation guide\n- Usage instructions with quick start\n- Tech stack and project structure\n- Design system reference\n- Contributing guidelines\n- Future enhancements roadmap\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(pandoc:*)",
+      "Bash(choco:*)",
+      "Bash(dir DESIGN_PRD.docx)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []
