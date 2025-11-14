@@ -1,4 +1,5 @@
-import { Plus, X, ArrowUp, ArrowDown, Copy, Eraser } from 'lucide-react';
+import { useState } from 'react';
+import { Plus, X, GripVertical, Copy, Eraser } from 'lucide-react';
 import { WorkExperience } from '../types/profile';
 import { FormField } from './FormField';
 
@@ -19,6 +20,9 @@ export function WorkExperienceForm({
   activeExperienceIndex,
   onExperienceClick
 }: WorkExperienceFormProps) {
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+
   const addExperience = () => {
     onChange([
       ...experiences,
@@ -47,13 +51,44 @@ export function WorkExperienceForm({
     }
   };
 
-  const moveExperience = (index: number, direction: 'up' | 'down') => {
-    const newIndex = direction === 'up' ? index - 1 : index + 1;
-    if (newIndex < 0 || newIndex >= experiences.length) return;
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+
+    if (draggedIndex === null || draggedIndex === index) return;
+    setDragOverIndex(index);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverIndex(null);
+  };
+
+  const handleDrop = (e: React.DragEvent, dropIndex: number) => {
+    e.preventDefault();
+
+    if (draggedIndex === null || draggedIndex === dropIndex) {
+      setDraggedIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
 
     const updated = [...experiences];
-    [updated[index], updated[newIndex]] = [updated[newIndex], updated[index]];
+    const [draggedItem] = updated.splice(draggedIndex, 1);
+    updated.splice(dropIndex, 0, draggedItem);
+
     onChange(updated);
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
   };
 
   const duplicateExperience = (index: number) => {
@@ -117,40 +152,31 @@ export function WorkExperienceForm({
           {experiences.map((exp, index) => (
             <div
               key={index}
+              draggable
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragOver={(e) => handleDragOver(e, index)}
+              onDragLeave={handleDragLeave}
+              onDrop={(e) => handleDrop(e, index)}
+              onDragEnd={handleDragEnd}
               onClick={() => onExperienceClick(index)}
-              className={`border rounded-lg p-6 transition-all ${
-                activeExperienceIndex === index
+              className={`border rounded-lg p-6 transition-all cursor-move ${
+                draggedIndex === index
+                  ? 'opacity-50 scale-95'
+                  : dragOverIndex === index
+                  ? 'border-blue-500 shadow-lg ring-2 ring-blue-200'
+                  : activeExperienceIndex === index
                   ? 'border-blue-500 shadow-lg bg-blue-50'
                   : 'border-gray-200 bg-white hover:border-gray-300'
               }`}
             >
               <div className="flex items-start justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Experience #{index + 1}
-                </h3>
+                <div className="flex items-center gap-2">
+                  <GripVertical className="h-5 w-5 text-gray-400 cursor-grab active:cursor-grabbing" title="Drag to reorder" />
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Experience #{index + 1}
+                  </h3>
+                </div>
                 <div className="flex items-center gap-1">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      moveExperience(index, 'up');
-                    }}
-                    disabled={index === 0}
-                    className="p-1 hover:bg-blue-100 rounded text-blue-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-                    title="Move Up"
-                  >
-                    <ArrowUp className="h-5 w-5" />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      moveExperience(index, 'down');
-                    }}
-                    disabled={index === experiences.length - 1}
-                    className="p-1 hover:bg-blue-100 rounded text-blue-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-                    title="Move Down"
-                  >
-                    <ArrowDown className="h-5 w-5" />
-                  </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();

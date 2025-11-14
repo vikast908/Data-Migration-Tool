@@ -54,13 +54,16 @@ A modern, user-friendly web application that helps users build professional prof
 ### Card Management
 
 Each experience, project, and education card supports:
-- **⬆️ Move Up** - Reorder cards within section
-- **⬇️ Move Down** - Reorder cards within section
+- **🎯 Drag & Drop** - Reorder cards by dragging them to desired position
 - **📋 Duplicate** - Create a copy of the card (Experience & Projects only)
 - **🧹 Clear** - Clear all fields while keeping the card
 - **❌ Remove** - Delete the card entirely
 
-All actions include confirmation dialogs to prevent accidental data loss.
+Features:
+- Visual grip handle for intuitive drag interaction
+- Real-time visual feedback during drag (opacity and highlight effects)
+- Smooth card reordering with instant updates
+- All destructive actions include confirmation dialogs to prevent accidental data loss
 
 ### Progress Tracking & Encouragement
 
@@ -192,7 +195,8 @@ Beautiful toast notifications appear at:
 3. **Add Experience, Projects, Education**
    - Click "Add Experience/Project/Education" buttons
    - Use text selection for quick data entry
-   - Manage cards with reorder, duplicate, and clear options
+   - Drag cards to reorder them
+   - Use duplicate and clear options for card management
 
 4. **Add Skills**
    - Type skills separated by commas
