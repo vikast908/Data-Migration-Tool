@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Save, ArrowRight, CheckCircle, Upload, X, AlertCircle, XCircle, Layout, Sparkles } from 'lucide-react';
+import { Save, ArrowRight, CheckCircle, Upload, X, AlertCircle, XCircle, Layout, TrendingUp } from 'lucide-react';
 import { ResumeViewer } from './ResumeViewer';
 import { BasicInfoForm } from './BasicInfoForm';
 import { WorkExperienceForm } from './WorkExperienceForm';
@@ -356,7 +356,7 @@ export function DataMigrationTool({ resumeFile, onComplete, onChangeResume }: Da
                 <span className={`text-sm font-semibold flex items-center gap-1.5 ${
                   progress === 100 ? 'text-green-600' : 'text-blue-600'
                 }`}>
-                  <Sparkles className={`h-4 w-4 ${progress === 100 ? 'animate-pulse' : ''}`} />
+                  <TrendingUp className={`h-4 w-4 ${progress === 100 ? 'animate-pulse' : ''}`} />
                   {getEncouragingMessage()}
                 </span>
                 <span className="text-xs text-gray-500 ml-5">
@@ -898,7 +898,7 @@ export function DataMigrationTool({ resumeFile, onComplete, onChangeResume }: Da
         }`}
       >
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3">
-          <Sparkles className="h-6 w-6 animate-pulse" />
+          <TrendingUp className="h-6 w-6 animate-pulse" />
           <span className="text-lg font-semibold">{milestoneToast.message}</span>
         </div>
       </div>

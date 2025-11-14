@@ -57,6 +57,7 @@ export function FormField({
   };
 
   const showPreview = selectedText && focused && !value;
+  const placeholderText = showPreview ? '' : (placeholder || `Select ${label.toLowerCase()} from resume`);
 
   return (
     <div className="space-y-1">
@@ -83,7 +84,7 @@ export function FormField({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             onClick={handleClick}
-            placeholder={placeholder || `Select ${label.toLowerCase()} from resume`}
+            placeholder={placeholderText}
             maxLength={maxLength}
             rows={4}
             className={`w-full px-3 py-2 border rounded-lg transition-all ${borderColors[status]} focus:outline-none resize-none`}
@@ -96,7 +97,7 @@ export function FormField({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             onClick={handleClick}
-            placeholder={placeholder || `Select ${label.toLowerCase()} from resume`}
+            placeholder={placeholderText}
             maxLength={maxLength}
             className={`w-full px-3 py-2 border rounded-lg transition-all ${borderColors[status]} focus:outline-none`}
           />
