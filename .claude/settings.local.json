@@ -4,7 +4,8 @@
       "Bash(npm run dev)",
       "Bash(dir /s \"C:\\Users\\vikas\\OneDrive\\Documents\\MY PROJECTS GITHUB\\Data Migration tool\")",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: Complete data migration tool with resume parsing\n\nFeatures:\n- Resume upload with PDF/DOC support (10MB max)\n- Interactive text selection and auto-fill from resume\n- Comprehensive profile builder with 5 sections:\n  * Basic Information with email validation\n  * Work Experience with \"I currently work here\" checkbox\n  * Projects with in-progress/finished status\n  * Education with degree and institution tracking\n  * Skills with tag-based interface\n  \n- Card management: duplicate, clear, reorder (up/down arrows)\n- Progress tracking with milestone celebrations\n- Encouraging messages and time estimates\n- Floating panel mode for better workflow\n- Context menu for quick field mapping\n- Auto-save functionality with visual feedback\n- Completion review screen with validation\n- Responsive design with Tailwind CSS\n- TypeScript for type safety\n- Supabase integration ready\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
